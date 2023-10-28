@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { Routes, Route, NavLink, BrowserRouter } from "react-router-dom";
-import Feed from "../components/pages/Feed";
+import Feed from "../components/pages/feed";
 import Login from "../components/pages/login";
 import Register from "../components/pages/register";
 import Profile from "../components/pages/profile";
