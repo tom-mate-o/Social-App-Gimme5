@@ -10,6 +10,7 @@ import { PostContainer } from "../../styled/posts/postContainer";
 import { Post } from "../../styled/posts/post";
 import { SocialBar } from "../../styled/posts/socialBar";
 
+// ...
  
 export default class Feed extends Component {
   render() {
