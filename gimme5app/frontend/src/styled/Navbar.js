@@ -7,4 +7,7 @@ export const Navbar = styled.div`
     right: 0;
     width: 10%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     `;
