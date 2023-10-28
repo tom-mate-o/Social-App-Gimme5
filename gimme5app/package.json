@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "dev": "concurrently \"cd frontend && npm start\" \"cd backend && npm run dev\"",
+    "test": "echo \"No tests yet\""
+  },
+  "author": "Thomas Kranawetter + Kathrin Huber",
+  "license": "GPL-3.0 license",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.1",
+    "react-router-dom": "^6.17.0"
+  }
+}
