@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import { Routes, Route, NavLink, BrowserRouter } from "react-router-dom";
 import Feed from "../components/pages/feed";
 import Login from "../components/pages/login";
