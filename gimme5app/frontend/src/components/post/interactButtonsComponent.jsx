@@ -7,10 +7,10 @@ import { BiBookmark } from "react-icons/bi";
 // Styled Components
 import { InteractButtons } from "../../styled/posts/interactButtons";
 
-export default function InteractButtonsComponent() {
+export default function InteractButtonsComponent({likes}) {
     return (
         <InteractButtons>
-        <BiStar/>
+        <BiStar/><p>{likes}</p>
         <BiPaperPlane/>
         <BiBookmark/>
         </InteractButtons>

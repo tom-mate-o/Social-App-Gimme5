@@ -5,4 +5,5 @@ export const Post = styled.div`
     border: 1px solid black;
     border-radius: 25px;
     background-color: #b5e2fa;
+    margin: 20px;
     `;

@@ -15,46 +15,43 @@ import { NavbarLogo } from "../styled/NavbarLogo";
 
 export default function AppContainer() {
 
+
+
     return (
-        <div>
-            <BrowserRouter>
-            <Navbar>
+      <div>
+        <BrowserRouter>
+          <Navbar>
+            <NavbarLogo>
+              <img src="\frontend\public\gimme5logo.png" alt="gimme5logo" />
+            </NavbarLogo>
 
-              <NavbarLogo>
-              <img src="\frontend\public\gimme5logo.png" alt="gimme5logo"/>
-              </NavbarLogo>
+            <NavigationIcons>
+              <ul className="header">
+                <li>
+                  <NavLink to="/">Feed</NavLink>
+                </li>
 
-          <NavigationIcons>
-          <ul className="header">
-            
-          
-            <li>
-              <NavLink to="/">Feed</NavLink>
-            </li>
+                <li>
+                  <NavLink to="/search">Search</NavLink>
+                </li>
 
-            <li>
-              <NavLink to="/search">Search</NavLink>
-            </li>
-            
+                <li>
+                  <NavLink to="/profile">Profile</NavLink>
+                </li>
 
-            <li>
-              <NavLink to="/profile">Profile</NavLink>
-            </li>
+                <li>
+                  <NavLink to="/settings">Settings</NavLink>
+                </li>
 
-            <li>
-              <NavLink to="/settings">Settings</NavLink>
-            </li>
+                <li>
+                  <NavLink to="/login">Login</NavLink>
+                </li>
 
-            <li>
-              <NavLink to="/login">Login</NavLink>
-            </li>
-
-            <li>
-              <NavLink to="/register">Register</NavLink>
-            </li>
-
-          </ul>
-          </NavigationIcons>
+                <li>
+                  <NavLink to="/register">Register</NavLink>
+                </li>
+              </ul>
+            </NavigationIcons>
           </Navbar>
           <ContentContainer>
             <Routes>
@@ -67,6 +64,6 @@ export default function AppContainer() {
             </Routes>
           </ContentContainer>
         </BrowserRouter>
-        </div>
+      </div>
     );
 }
