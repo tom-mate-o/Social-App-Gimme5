@@ -37,37 +37,46 @@
   }
 }
 
-.newPost {
+input{
+  width: 300px;
+  height: 55px;
+  border-radius: 25px;
+  border: none;
+}
+
+select{
+  width: 300px;
+  height: 55px;
+  border-radius: 25px;
+  border: none;
+}
+
+button{
+  width: 300px;
+  height: 55px;
+  border-radius: 25px;
+  border: none;
+  background-color: #13C460;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+button:hover{
+  cursor: pointer;
+}
+
+.newPost, .login {
   background-color: black;
   color: white;
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
 
-  input{
-    width: 300px;
-    height: 55px;
-    border-radius: 25px;
-    border: none;
-  }
-
-  select{
-    width: 300px;
-    height: 55px;
-    border-radius: 25px;
-    border: none;
-  }
-
-  button{
-    width: 300px;
-    height: 55px;
-    border-radius: 25px;
-    border: none;
-    background-color: #13C460;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-  }
+p{
+  font-size: 12px;
+  width: 300px;
 }
 
 .checkbox{
