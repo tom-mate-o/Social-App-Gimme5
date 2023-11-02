@@ -37,7 +37,7 @@
   }
 }
 
-input{
+input, label{
   width: 300px;
   height: 55px;
   border-radius: 25px;
@@ -66,7 +66,7 @@ button:hover{
   cursor: pointer;
 }
 
-.newPost, .login {
+.newPost, .login, .register {
   background-color: black;
   color: white;
   display: flex;
@@ -86,7 +86,7 @@ button:hover{
   }
 }
 
-.login{
+.login, .register{
   p{
     font-size: 12px;
     width: 300px;
