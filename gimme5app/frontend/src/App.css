@@ -36,3 +36,49 @@
     transform: rotate(360deg);
   }
 }
+
+.newPost {
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  input{
+    width: 300px;
+    height: 55px;
+    border-radius: 25px;
+    border: none;
+  }
+
+  select{
+    width: 300px;
+    height: 55px;
+    border-radius: 25px;
+    border: none;
+  }
+
+  button{
+    width: 300px;
+    height: 55px;
+    border-radius: 25px;
+    border: none;
+    background-color: #13C460;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+  }
+}
+
+.checkbox{
+  display: flex;
+  flex-direction: row;
+  padding-left: 10px;
+
+  input{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+}
+

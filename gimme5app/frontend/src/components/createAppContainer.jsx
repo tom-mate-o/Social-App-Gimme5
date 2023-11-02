@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, NavLink, BrowserRouter } from "react-router-dom";
 import Feed from "../components/pages/feed";
+import NewPost from "./pages/newpost";
 import Login from "../components/pages/login";
 import Register from "../components/pages/register";
 import Profile from "../components/pages/profile";
@@ -32,6 +33,10 @@ export default function AppContainer() {
                 </li>
 
                 <li>
+                  <NavLink to="/newpost">New Post</NavLink>
+                </li>
+
+                <li>
                   <NavLink to="/search">Search</NavLink>
                 </li>
 
@@ -56,6 +61,7 @@ export default function AppContainer() {
           <ContentContainer>
             <Routes>
               <Route path="/" element={<Feed />} />
+              <Route path="/newpost" element={<NewPost />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/settings" element={<Settings />} />
