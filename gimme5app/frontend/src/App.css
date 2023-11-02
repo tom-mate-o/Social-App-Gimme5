@@ -74,11 +74,6 @@ button:hover{
   gap: 20px;
 }
 
-p{
-  font-size: 12px;
-  width: 300px;
-}
-
 .checkbox{
   display: flex;
   flex-direction: row;
@@ -88,6 +83,13 @@ p{
     width: 20px;
     height: 20px;
     margin-right: 10px;
+  }
+}
+
+.login{
+  p{
+    font-size: 12px;
+    width: 300px;
   }
 }
 
