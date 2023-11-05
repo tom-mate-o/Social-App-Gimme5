@@ -1,3 +1,8 @@
+@import "./assets/css/main.css";
+@import "./assets/css/form.css";
+@import "./assets/css/navbar.css";
+@import "./assets/css/post.css";
+
 .App {
   text-align: center;
 }
@@ -32,26 +37,15 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-input, label{
-  width: 300px;
-  height: 55px;
-  border-radius: 25px;
-  border: none;
-}
 
-select{
-  width: 300px;
-  height: 55px;
-  border-radius: 25px;
-  border: none;
-}
 
-button{
+button {
   width: 300px;
   height: 55px;
   border-radius: 25px;
@@ -62,34 +56,16 @@ button{
   font-size: 20px;
 }
 
-button:hover{
+button:hover {
   cursor: pointer;
 }
 
-.newPost, .login, .register {
+.newPost,
+.login,
+.register {
   background-color: black;
   color: white;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-
-.checkbox{
-  display: flex;
-  flex-direction: row;
-  padding-left: 10px;
-
-  input{
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-  }
-}
-
-.login, .register{
-  p{
-    font-size: 12px;
-    width: 300px;
-  }
-}
-

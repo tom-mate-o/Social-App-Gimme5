@@ -1,0 +1,32 @@
+input,
+label {
+    width: 300px;
+    height: 55px;
+    border-radius: 25px;
+    border: none;
+}
+
+select {
+    width: 300px;
+    height: 55px;
+    border-radius: 25px;
+    border: none;
+}
+
+.checkbox {
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+}
+
+.checkbox input {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.login p,
+.register p {
+    font-size: 12px;
+    width: 300px;
+}
