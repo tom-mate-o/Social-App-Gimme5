@@ -13,63 +13,62 @@ import { Navbar } from "../styled/Navbar";
 import { ContentContainer } from "../styled/ContentContainer";
 import { NavigationIcons } from "../styled/NavigationIcons";
 import { NavbarLogo } from "../styled/NavbarLogo";
+import { ReactSVG } from "react-svg";
 
 export default function AppContainer() {
+  console.log();
+  return (
+    <div>
+      <BrowserRouter>
+        <Navbar className="navbar">
+          <NavbarLogo>
+            <ReactSVG src="../assets/img/gimme5logo.svg" />
+          </NavbarLogo>
 
+          <NavigationIcons>
+            <ul className="main-navigation">
+              <li>
+                <NavLink className="feed" to="/">Feed</NavLink>
+              </li>
 
+              <li>
+                <NavLink className="newpost" to="/newpost">New Post</NavLink>
+              </li>
 
-    return (
-      <div>
-        <BrowserRouter>
-          <Navbar>
-            <NavbarLogo>
-              <img src="\frontend\public\gimme5logo.png" alt="gimme5logo" />
-            </NavbarLogo>
+              <li>
+                <NavLink className="search" to="/search">Search</NavLink>
+              </li>
 
-            <NavigationIcons>
-              <ul className="header">
-                <li>
-                  <NavLink to="/">Feed</NavLink>
-                </li>
+              <li>
+                <NavLink className="profile" to="/profile">Profile</NavLink>
+              </li>
 
-                <li>
-                  <NavLink to="/newpost">New Post</NavLink>
-                </li>
+              <li>
+                <NavLink className="settings" to="/settings">Settings</NavLink>
+              </li>
 
-                <li>
-                  <NavLink to="/search">Search</NavLink>
-                </li>
+              <li>
+                <NavLink to="/login">Login</NavLink>
+              </li>
 
-                <li>
-                  <NavLink to="/profile">Profile</NavLink>
-                </li>
-
-                <li>
-                  <NavLink to="/settings">Settings</NavLink>
-                </li>
-
-                <li>
-                  <NavLink to="/login">Login</NavLink>
-                </li>
-
-                <li>
-                  <NavLink to="/register">Register</NavLink>
-                </li>
-              </ul>
-            </NavigationIcons>
-          </Navbar>
-          <ContentContainer>
-            <Routes>
-              <Route path="/" element={<Feed />} />
-              <Route path="/newpost" element={<NewPost />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/profile" element={<Profile />} />
-            </Routes>
-          </ContentContainer>
-        </BrowserRouter>
-      </div>
-    );
+              <li>
+                <NavLink to="/register">Register</NavLink>
+              </li>
+            </ul>
+          </NavigationIcons>
+        </Navbar>
+        <ContentContainer className="content">
+          <Routes>
+            <Route path="/" element={<Feed />} />
+            <Route path="/newpost" element={<NewPost />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </ContentContainer>
+      </BrowserRouter>
+    </div>
+  );
 }
