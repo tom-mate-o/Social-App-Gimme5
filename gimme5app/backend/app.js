@@ -28,7 +28,7 @@ app.use(cors());
   const topFiveSchema = new mongoose.Schema({
     id: String,
     user: String,
-    connection: String,
+    category: String,
     subcategory: String,
     list: [
       {
@@ -39,7 +39,7 @@ app.use(cors());
         place5: String,
       },
     ],
-    hastags: [String],
+    hashtags: [String],
     likes: Number,
     postprivate: Boolean,
   });
@@ -47,10 +47,30 @@ app.use(cors());
   const TopFive = connection.model("TopFiveCollection", topFiveSchema); // TopFiveCollection ist der Namer der Collection in der DB
 
   // Methode um TopFive Liste in die DB zu schreiben
-// app.post("/addtopfive", (req, res) => {
-//   try{
-//     ...
-//   }
+app.post("/addtopfive", async (req, res) => {
+  try{
+    const topFiveToAdd = req.body;
+    console.log(topFiveToAdd);
+    const addedTopFive = await TopFive.create(topFiveToAdd);
+    res.status(201).send({"message": "TopFive added successfully to DB"});
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({"message": "Error while adding TopFive to DB"});
+  }
+});
+
+// Methode um  TopFive Listen aus der DB zu lesen
+
+app.get("/gettopfives", async (req, res) => {
+  try{
+    const getTopFiveLists = await TopFive.find({}); //sucht alle TopFive Listen in der DB nach {} = alle
+    console.log(getTopFiveLists);
+    res.status(200).send({"message": "TopFive Lists successfully fetched from DB", "data": getTopFiveLists}); // Send the fetched data
+  } catch {
+    res.status(500).send({"message": "Error while fetching TopFive Lists from DB"});
+  }
+}
+);
   
 
 // Routen

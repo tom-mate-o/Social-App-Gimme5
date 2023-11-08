@@ -1,4 +1,6 @@
 import React, {useRef} from "react";
+import { addTopFiveToDatabase } from "../../utils/addTopFiveToDatabase";
+import {v4 as uuidv4} from "uuid";
 
 export default function WriteAndPublishNewPost() {
     const refcategory = useRef();
@@ -10,6 +12,44 @@ export default function WriteAndPublishNewPost() {
     const ref5thplace = useRef();
     const refhashtags = useRef();
     const refPostPrivate = useRef();
+
+
+    function handleButtonClick(){
+        const category = refcategory.current.value;
+        const subcategory = refsubcategory.current.value;
+        const place1 = ref1stplace.current.value;
+        const place2 = ref2ndplace.current.value;
+        const place3 = ref3rdplace.current.value;
+        const place4 = ref4thplace.current.value;
+        const place5 = ref5thplace.current.value;
+        const hashtags = refhashtags.current.value.split(/[\s;,]+/);
+        const isPrivate = refPostPrivate.current.checked;
+        const likes = 0;
+
+
+        const newPost = {
+            id: uuidv4(),
+            user: "user1",
+            category,
+            subcategory,
+            list: [{ place1, place2, place3, place4, place5 }],
+            hashtags,
+            isPrivate,
+            likes,
+          };
+        
+          addTopFiveToDatabase(newPost);
+
+          refcategory.current.value = "";
+          refsubcategory.current.value = "";
+          ref1stplace.current.value = "";
+          ref2ndplace.current.value = "";
+          ref3rdplace.current.value = "";
+          ref4thplace.current.value = "";
+          ref5thplace.current.value = "";
+          refhashtags.current.value = "";
+          refPostPrivate.current.checked = false;
+        }
 
     return (
         <div className="newPost">
@@ -54,26 +94,7 @@ export default function WriteAndPublishNewPost() {
 
 
 
-        <button onClick={() => {
-            console.log(refcategory.current.value);
-            console.log(refsubcategory.current.value);
-            console.log(ref1stplace.current.value);
-            console.log(ref2ndplace.current.value);
-            console.log(ref3rdplace.current.value);
-            console.log(ref4thplace.current.value);
-            console.log(ref5thplace.current.value);
-            console.log(refhashtags.current.value);
-            console.log("post private " + refPostPrivate.current.checked);
-            refcategory.current.value = "";
-            refsubcategory.current.value = "";
-            ref1stplace.current.value = "";
-            ref2ndplace.current.value = "";
-            ref3rdplace.current.value = "";
-            ref4thplace.current.value = "";
-            ref5thplace.current.value = "";
-            refhashtags.current.value = "";
-            refPostPrivate.current.checked = false;
-        }}>Publish</button>
+        <button onClick={handleButtonClick}>Publish</button>
 
 
         </div>

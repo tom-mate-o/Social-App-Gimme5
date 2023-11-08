@@ -7,7 +7,7 @@ import { HashtagCloud } from "../../styled/posts/hashtagCloud";
 export default function HashtagCloudComponent({hashtags}) {
     return (
         <HashtagCloud>
-        <p>{hashtags}</p>
+                <p>{hashtags && hashtags.map(hashtag => hashtag.startsWith('#') ? `${hashtag} ` : `#${hashtag} `)}</p>
         </HashtagCloud>
     );
     }
