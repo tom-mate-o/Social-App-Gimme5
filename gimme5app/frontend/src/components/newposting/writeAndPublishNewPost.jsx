@@ -57,20 +57,25 @@ export default function WriteAndPublishNewPost() {
 
         <select ref={refcategory} id="category" name="category">
         <option value="" disabled selected>Choose a category</option>
-        <option value="apfel">Apfel</option>
-        <option value="banane">Banane</option>
-        <option value="kirsche">Kirsche</option>
-        <option value="orange">Orange</option>
-        <option value="birne">Birne</option>
+        <option value="Animals">Animals</option>
+        <option value="Books">Books</option>
+        <option value="Food">Food</option>
+        <option value="Games">Games</option>
+        <option value="Miscellaneous">Miscellaneous</option>
+        <option value="Movies">Movies</option>
+        <option value="Music">Music</option>
+        <option value="Series">Series</option>
+        <option value="Travelling">Travelling</option>
+
         </select>
 
         <select ref={refsubcategory} id="subcategory" name="subcategory">
         <option value="" disabled selected>Choose or create a subcategory</option>
-        <option value="apfel">Apfel</option>
-        <option value="banane">Banane</option>
-        <option value="kirsche">Kirsche</option>
-        <option value="orange">Orange</option>
-        <option value="birne">Birne</option>
+        <option value="Ungeeignetsten Haustiere">Ungeeignetsten Haustiere</option>
+        <option value="Sci-Fi Bücher">Sci-Fi Bücher</option>
+        <option value="Pizza Sorten">Pizza Sorten</option>
+        <option value="90s Songs">90s Songs</option>
+        <option value="Brettspiele">Brettspiele</option>
         </select>
 
         <input ref={ref1stplace} id="1stplace" type="text" placeholder="1st Place" />
