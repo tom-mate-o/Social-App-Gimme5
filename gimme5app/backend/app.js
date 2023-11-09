@@ -71,6 +71,18 @@ app.get("/gettopfives", async (req, res) => {
   }
 }
 );
+
+// Methode um eine TopFive Liste aus der DB zu löschen
+
+app.delete("/deletetopfive/:id", async (req, res) => {
+  try{
+    const topFiveId = req.params.id;
+    await TopFive.findOneAndDelete({id: topFiveId});
+    res.status(200).send({"message": "TopFive List successfully deleted from DB"});
+  } catch (error){
+    res.status(500).send({"message": "Error while deleting TopFive List from DB"});
+  }
+});
   
 
 // Routen

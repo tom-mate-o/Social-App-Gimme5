@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getTopFiveFromDatabase } from "../../utils/getTopFiveFromDatabase";
 
 export default function useMondoDBData() {
