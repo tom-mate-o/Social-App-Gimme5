@@ -5,6 +5,7 @@ const app = express();
 const port = process.env.PORT;
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bcrypt = require('bcryptjs');
 
 // Middleware
 app.use(express.json());
@@ -24,7 +25,7 @@ app.use(cors());
     });
 
 
-    // Schema
+    // Schema für Post
   const topFiveSchema = new mongoose.Schema({
     id: String,
     user: String,
@@ -45,6 +46,62 @@ app.use(cors());
   });
 
   const TopFive = connection.model("TopFiveCollection", topFiveSchema); // TopFiveCollection ist der Namer der Collection in der DB
+
+
+  // Schaema für User
+
+  const userSchema = new mongoose.Schema({
+    id: {
+      type: String,
+      required: true,
+    },
+    avatar: {
+      type: String,
+      required: false,
+    },
+    username:{
+      type: String,
+      required: true,
+      minlength: 3,
+      maxlength: 50,
+    },
+    firstname: {
+      type: String,
+      required: true,
+      minlength: 3,
+      maxlength: 50,
+    },
+    lastname: {
+      type: String,
+      required: false,
+      minlength: 3,
+      maxlength: 50,
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 6,
+      maxlength: 100,
+    },
+    email: {
+      type: String,
+      required: true,
+      minlength: 6,
+      maxlength: 50,
+    },
+    location: {
+      type: String,
+      required: false,
+    },
+    role: {
+      type: String,
+      required: true,
+      enum: ["user", "admin"],
+    },
+  });
+
+  const UserModel = mongoose.model("usercollection", userSchema); // UserCollection ist der Namer der Collection in der DB
+
 
   // Methode um TopFive Liste in die DB zu schreiben
 app.post("/addtopfive", async (req, res) => {
@@ -116,9 +173,57 @@ app.get("/health-check", (req, res) => {
   res.status(200).send({message: "I'm alive. Greetings from the backend."});
 });
 
+
 app.listen(port, () => {
   console.log(`app.js here - Example app listening on port ${port}`);
 });
 
 
+// Route für Registrierung ----------------
+// anderes Dateiformat als JSON, daher andere Middleware und am Ende (topDown-Code)
+const multer = require('multer');
+const upload = multer();
 
+// Middleware für multipart formdata
+app.use(express.urlencoded({ extended: true }));
+
+app.post("/api/register", upload.single("avatar"), async (req, res) => {
+  console.log(req.body); // Textfelder des Formulars
+  console.log(req.file); // Hochgeladene Dateien
+
+  try{
+  
+    const {id, avatar, username, firstname, lastname, password, email, location, role} = req.body;
+    console.log('Parsed request body', {id, avatar, username, firstname, lastname, password, email, location, role});
+    if(! id || !username || !firstname || !lastname || !password || !email || !location || !role) {
+    return res.status(404).send({message: "Required Field Missing"});
+      }
+
+    // const existingUser = await User.findOne({email});
+    // console.log('Existing user', existingUser);
+    // if(existingUser) {
+    // return res.status(409).send({message: "User already exists"});
+    //   }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+   const userToAdd = new UserModel({id, avatar, username, firstname, lastname, hashedPassword, email, location, role});
+  console.log(userToAdd);
+    const userCreated = await UserModel.create(userToAdd);
+    res.status(201).send({message: "User successfully created"});
+  } catch (error) {
+    res.status(500).send({message: "Error while creating User"});
+}
+});
+
+
+// app.post("/addtopfive", async (req, res) => {
+//   try{
+//     const topFiveToAdd = req.body;
+//     console.log(topFiveToAdd);
+//     const addedTopFive = await TopFive.create(topFiveToAdd);
+//     res.status(201).send({"message": "TopFive added successfully to DB"});
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({"message": "Error while adding TopFive to DB"});
+//   }
+// });
