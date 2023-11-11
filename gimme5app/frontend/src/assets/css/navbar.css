@@ -1,0 +1,81 @@
+.navbar {
+    height: 100vh;
+    background-color: #414141;
+    padding: 30px;
+    width: 25%;
+}
+
+.main-navigation {
+    list-style-type: none;
+    margin-top: 60px;
+}
+
+.main-navigation li {
+    margin: 20px 0;
+}
+
+.main-navigation li a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.main-navigation li a:before {
+    transition: all .2s;
+}
+
+.main-navigation li a:hover:before {
+    transform: scale(1.2);
+}
+
+.main-navigation li a.feed:before {
+    content: url('../icons/feed.svg');
+}
+
+.main-navigation li a.newpost:before {
+    content: url('../icons/new-post.svg');
+}
+
+.main-navigation li a.search:before {
+    content: url('../icons/search.svg');
+}
+
+.main-navigation li a.settings:before {
+    content: url('../icons/settings.svg');
+}
+
+.main-navigation li a.profile:before {
+    content: url('../icons/user.svg');
+}
+
+@media (max-width: 922px) and (orientation: portrait) {
+    .navbar {
+        display: flex;
+        justify-content: center;
+        max-width: 60px;
+        align-content: space-between;
+        flex-wrap: wrap;
+        padding: 30px 15px;
+    }
+
+    .navbar img {
+        width: 100%;
+        height: auto;
+    }
+
+    .main-navigation {
+        text-align: center;
+    }
+
+    .main-navigation li a {
+        text-indent: -9999px;
+        gap: 0;
+    }
+
+    .main-navigation li a:before {
+        text-indent: 0;
+    }
+}
