@@ -16,13 +16,27 @@ export default function RegisterToApp() {
 
   const registerUser = async(e) => {
     e.preventDefault();
+    const formData = new FormData();
+    // Zugriff auf die einzelnen Eingabefelder über das name-Attribut
     const form = formRef.current;
-    const formData = new FormData(form);
-    formData.append('id', uuidv4());
+    const id = uuidv4();
+    formData.append('id', id);
+    formData.append('avatar', form.avatar.files[0]);
+    formData.append('username', form.username.value);
+    formData.append('firstname', form.firstname.value);
+    formData.append('lastname', form.lastname.value);
+    formData.append('password', form.password.value);
+    formData.append('password2', form.password2.value);
+    formData.append('email', form.email.value);
+    formData.append('email2', form.email2.value);
+    formData.append('location', form.location.value);
     formData.append('role', 'user');
     console.log(formData);
+      
     registerUserAndAddToDatabase(formData);
-    }
+    };
+    
+    
   
    
 

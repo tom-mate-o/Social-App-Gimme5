@@ -7,9 +7,27 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 
+// Multer Middleware (Images)
+const multer = require('multer');
+
+
 // Middleware
 app.use(express.json());
 app.use(cors());
+
+// Speichern der Dateien im Ordner uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${avatar.originalname}`);
+  },
+});
+
+const avatar = multer({ storage });
+
+
 
 
 // Connect to MongoDB
@@ -95,7 +113,6 @@ app.use(cors());
     },
     role: {
       type: String,
-      required: true,
       enum: ["user", "admin"],
     },
   });
@@ -179,25 +196,26 @@ app.listen(port, () => {
 });
 
 
-// Route für Registrierung ----------------
-// anderes Dateiformat als JSON, daher andere Middleware und am Ende (topDown-Code)
-const multer = require('multer');
-const upload = multer();
+// Post Register ----------------------------------------------
 
 // Middleware für multipart formdata
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/api/register", upload.single("avatar"), async (req, res) => {
+app.post("/api/register", avatar.single("avatar"), async (req, res) => { 
   console.log(req.body); // Textfelder des Formulars
   console.log(req.file); // Hochgeladene Dateien
 
   try{
   
     const {id, avatar, username, firstname, lastname, password, email, location, role} = req.body;
-    console.log('Parsed request body', {id, avatar, username, firstname, lastname, password, email, location, role});
+    
     if(! id || !username || !firstname || !lastname || !password || !email || !location || !role) {
     return res.status(404).send({message: "Required Field Missing"});
       }
+
+    const avatarUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+    console.log(avatarUrl); // ✅
+
 
     // const existingUser = await User.findOne({email});
     // console.log('Existing user', existingUser);
@@ -206,10 +224,16 @@ app.post("/api/register", upload.single("avatar"), async (req, res) => {
     //   }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-   const userToAdd = new UserModel({id, avatar, username, firstname, lastname, hashedPassword, email, location, role});
-  console.log(userToAdd);
+    console.log(hashedPassword); // ✅
+
+   const userToAdd = new UserModel({id, avatarUrl, username, firstname, lastname, hashedPassword, email, location, role});
+   console.log("hi"); // ✅
+   console.log(userToAdd); // ✅
+
     const userCreated = await UserModel.create(userToAdd);
+    console.log("creating"); // ❌
     res.status(201).send({message: "User successfully created"});
+
   } catch (error) {
     res.status(500).send({message: "Error while creating User"});
 }

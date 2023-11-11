@@ -6,6 +6,9 @@ export async function registerUserAndAddToDatabase(formData) {
         const config = {
             method: 'post', // Hier wird eine POST-Anfrage gesendet
             url: "http://localhost:8080/api/register",
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
             data: formData,
         }
         const res = await axios(config);
