@@ -23,6 +23,14 @@
     align-items: center;
 }
 
+.main-navigation li a:before {
+    transition: all .2s;
+}
+
+.main-navigation li a:hover:before {
+    transform: scale(1.2);
+}
+
 .main-navigation li a.feed:before {
     content: url('../icons/feed.svg');
 }
