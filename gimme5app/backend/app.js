@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${avatar.originalname}`);
+    cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
 
@@ -73,7 +73,7 @@ const avatar = multer({ storage });
       type: String,
       required: true,
     },
-    avatar: {
+    avatarUrl: {
       type: String,
       required: false,
     },
@@ -95,7 +95,7 @@ const avatar = multer({ storage });
       minlength: 3,
       maxlength: 50,
     },
-    password: {
+    hashedPassword: {
       type: String,
       required: true,
       minlength: 6,
@@ -117,7 +117,7 @@ const avatar = multer({ storage });
     },
   });
 
-  const UserModel = mongoose.model("usercollection", userSchema); // UserCollection ist der Namer der Collection in der DB
+  const UserModel = connection.model("usercollection", userSchema); // UserCollection ist der Namer der Collection in der DB
 
 
   // Methode um TopFive Liste in die DB zu schreiben
