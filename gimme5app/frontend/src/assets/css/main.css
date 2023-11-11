@@ -1,0 +1,25 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.App {
+    background-color: black;
+    font-family: sans-serif;
+}
+
+.App>div {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+}
+
+.App .content {
+    width: 75%;
+}
+
+@media (max-width: 922px) and (orientation: portrait) {
+    .App .content {
+        width: 100%;
+    }
+}
