@@ -13,7 +13,7 @@ import { Navbar } from "../styled/Navbar";
 import { ContentContainer } from "../styled/ContentContainer";
 import { NavigationIcons } from "../styled/NavigationIcons";
 import { NavbarLogo } from "../styled/NavbarLogo";
-import { ReactSVG } from "react-svg";
+import logo from "../assets/img/g5-logo.svg";
 
 export default function AppContainer() {
   console.log();
@@ -22,7 +22,7 @@ export default function AppContainer() {
       <BrowserRouter>
         <Navbar className="navbar">
           <NavbarLogo>
-            <ReactSVG src="../assets/img/gimme5logo.svg" />
+            <img src={logo} alt="GIMME5 Logo" />
           </NavbarLogo>
 
           <NavigationIcons>

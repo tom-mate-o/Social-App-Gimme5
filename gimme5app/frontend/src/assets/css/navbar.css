@@ -18,9 +18,6 @@
     color: white;
     font-size: 20px;
     text-decoration: none;
-}
-
-.main-navigation li a {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -44,4 +41,33 @@
 
 .main-navigation li a.profile:before {
     content: url('../icons/user.svg');
+}
+
+@media (max-width: 922px) and (orientation: portrait) {
+    .navbar {
+        display: flex;
+        justify-content: center;
+        max-width: 60px;
+        align-content: space-between;
+        flex-wrap: wrap;
+        padding: 30px 15px;
+    }
+
+    .navbar img {
+        width: 100%;
+        height: auto;
+    }
+
+    .main-navigation {
+        text-align: center;
+    }
+
+    .main-navigation li a {
+        text-indent: -9999px;
+        gap: 0;
+    }
+
+    .main-navigation li a:before {
+        text-indent: 0;
+    }
 }
