@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const FiveList = styled.div`
-    border: 1px solid black;
-    background-color: #ff8fa3;
+    padding-left: 20px;
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 10px;
     `;

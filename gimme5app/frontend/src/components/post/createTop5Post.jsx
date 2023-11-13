@@ -17,41 +17,42 @@ import { SocialBar } from "../../styled/posts/socialBar";
 import useMondoDBData from "../customHooks/useMondoDBData";
 
 
- 
+
 export default function CreateTop5Post() {
 
-        const [topFivePosts, setTopFivePosts] = useMondoDBData([]);
-    
-        const onDelete = async (topFiveId) => {
-            try{
-                await deleteTopFiveFromDatabase(topFiveId);
-                console.log("hi from onDelete");
-                setTopFivePosts(prevPosts => prevPosts.filter((post) => post.id !== topFiveId));
-            } catch (error) {
-                console.log("Error deleting post: ", error);
-            }
-        };
-        
-    return (
-        
-      <div>
-        {topFivePosts.slice().reverse().map((post, index) => (
-            <Post key={index}>
-                <DeleteTopFive onDelete={() => onDelete(post.id)}/>
-                <PostInfoComponent user={post.user}/>
-                <PostCategoryComponent category={post.category}/>
-                <PostTitleComponent title={post.subcategory}/>
-                <FiveListComponent list={post.list}/>
-                <SocialBar>
-                        <HashtagCloudComponent hashtags={post.hashtags}/>
-                        <InteractButtonsComponent likes={post.likes}/>
-                        
-                </SocialBar>
-            </Post>
-        ))}
-  
+    const [topFivePosts, setTopFivePosts] = useMondoDBData([]);
 
-      </div>
-    );
-  }
- 
+    const onDelete = async (topFiveId) => {
+        try {
+            await deleteTopFiveFromDatabase(topFiveId);
+            console.log("hi from onDelete");
+            setTopFivePosts(prevPosts => prevPosts.filter((post) => post.id !== topFiveId));
+        } catch (error) {
+            console.log("Error deleting post: ", error);
+        }
+    };
+
+    return (
+
+        <div>
+            {topFivePosts.slice().reverse().map((post, index) => (
+                <Post key={index}>
+                    <div className="post_content">
+                        <DeleteTopFive onDelete={() => onDelete(post.id)} />
+                        <PostInfoComponent user={post.user} />
+                        <PostCategoryComponent category={post.category} />
+                        <PostTitleComponent title={post.subcategory} />
+                        <FiveListComponent list={post.list} />
+                    </div>
+                    <SocialBar>
+                        <HashtagCloudComponent hashtags={post.hashtags} />
+                        <InteractButtonsComponent likes={post.likes} />
+
+                    </SocialBar>
+                </Post>
+            ))}
+
+
+        </div>
+    );
+}
