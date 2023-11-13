@@ -5,4 +5,5 @@ export const SocialBar = styled.div`
     color: #FFFFFF;
     display: flex;
     justify-content: space-between;
+    gap: 40px;
     `;

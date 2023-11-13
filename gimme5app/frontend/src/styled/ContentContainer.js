@@ -5,4 +5,5 @@ export const ContentContainer = styled.div`
     height: 100vh;
     display: flex;
     justify-content: center;
+    overflow-y: scroll;
     `;
