@@ -14,6 +14,7 @@ import { ContentContainer } from "../styled/ContentContainer";
 import { NavigationIcons } from "../styled/NavigationIcons";
 import { NavbarLogo } from "../styled/NavbarLogo";
 import logo from "../assets/img/g5-logo.svg";
+import { ToastContainer } from 'react-toastify';
 
 export default function AppContainer() {
   console.log();
@@ -24,7 +25,7 @@ export default function AppContainer() {
           <NavbarLogo>
             <img src={logo} alt="GIMME5 Logo" />
           </NavbarLogo>
-
+          <ToastContainer />
           <NavigationIcons>
             <ul className="main-navigation">
               <li>

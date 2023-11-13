@@ -1,4 +1,5 @@
 import axios from 'axios';
+import showNotification from '../components/showNotifications/showNotifications';
 
 export async function registerUserAndAddToDatabase(formData) {
     try {
@@ -13,11 +14,14 @@ export async function registerUserAndAddToDatabase(formData) {
         }
         const res = await axios(config);
         console.log(res.data);
+        showNotification("User registered. \nWelcome to GIMME5", "success");
+
         return true; // UserData erfolgreich in DB gespeichert
         // navigiere zu Login
         //
     } catch (error) {
         console.error("Fetch in Frontend fehlgeschlagen");
+        showNotification("Ooops, something went wrong", "error");
         return false; // UserData konnte nicht in DB gespeichert werden
     }
 }

@@ -1,0 +1,6 @@
+/* toastStyles.css */
+
+.custom-toast .Toastify__close-button {
+    margin-right: 15px; /* Adjust this value as per your requirement */
+    width: auto;
+  }
