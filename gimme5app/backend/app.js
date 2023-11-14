@@ -7,6 +7,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 
+// JSON WEB Token - JWT
+const jwt = require('jsonwebtoken');
+
 // Multer Middleware (Images)
 const multer = require('multer');
 
@@ -195,8 +198,42 @@ app.listen(port, () => {
   console.log(`app.js here - Example app listening on port ${port}`);
 });
 
+// POST Login -----------------------------------------------------
 
-// Post Register ----------------------------------------------
+app.post("/api/login", async (req, res) => {
+  const {email, password} = req.body;
+  if (!email || !password) {
+    return res.status(400).send({message: "Required field missing"});
+  }
+
+  // Error Handling
+  // check if user exists in DB
+  const existingUser = await UserModel.findOne({email}); // Model ansprechen über Filter
+  if(!existingUser) {
+    console.log("User does not exist");
+    return res.status(404).send({message: "User does not exist"});
+  }
+  // check if password is correct
+  const isPasswordCorrect = await bcrypt.compare(password, existingUser.hashedPassword);
+  if(!isPasswordCorrect) {
+    console.log("Password is incorrect");
+    return res.status(401).send({message: "Password is incorrect"});
+  }
+    	if (isPasswordCorrect || existingUser) {
+    console.log("Username + PW is correct - Login successful");
+    
+    // create JWT-Token
+    const token = jwt.sign({id: existingUser.id}, process.env.JWT_SECRET);
+    console.log("token: " + token);
+
+    return res.status(200).send({token, message: "Login successful"});
+      }
+
+
+});
+
+
+// POST Register ----------------------------------------------
 
 // Middleware für multipart formdata
 app.use(express.urlencoded({ extended: true }));
@@ -224,14 +261,14 @@ app.post("/api/register", avatar.single("avatar"), async (req, res) => {
     //   }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log(hashedPassword); // ✅
+    console.log(hashedPassword); 
 
    const userToAdd = new UserModel({id, avatarUrl, username, firstname, lastname, hashedPassword, email, location, role});
-   console.log("hi"); // ✅
-   console.log(userToAdd); // ✅
+   console.log("hi"); 
+   console.log(userToAdd); 
 
     const userCreated = await UserModel.create(userToAdd);
-    console.log("creating"); // ❌
+    console.log("creating");
     res.status(201).send({message: "User successfully created"});
 
   } catch (error) {
@@ -239,15 +276,3 @@ app.post("/api/register", avatar.single("avatar"), async (req, res) => {
 }
 });
 
-
-// app.post("/addtopfive", async (req, res) => {
-//   try{
-//     const topFiveToAdd = req.body;
-//     console.log(topFiveToAdd);
-//     const addedTopFive = await TopFive.create(topFiveToAdd);
-//     res.status(201).send({"message": "TopFive added successfully to DB"});
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send({"message": "Error while adding TopFive to DB"});
-//   }
-// });
