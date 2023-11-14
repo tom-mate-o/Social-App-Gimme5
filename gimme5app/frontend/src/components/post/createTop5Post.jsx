@@ -18,7 +18,7 @@ import useMondoDBData from "../customHooks/useMondoDBData";
 
 
  
-export default function CreateTop5Post() {
+export default function CreateTop5Post({handleLogout}) {
 
         const [topFivePosts, setTopFivePosts] = useMondoDBData([]);
     

@@ -1,12 +1,49 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
+import { compareLoginToDatabase } from "../../utils/compareLoginToDatabase";
+import showNotification from "../showNotifications/showNotifications";
+import { useNavigate } from "react-router-dom";
 
-export default function LoginToApp() {
-  const username = useRef();
+
+export default function LoginToApp({handleLogin, loggedIn}) {
+
+  const email = useRef();
   const password = useRef();
+  const navigate = useNavigate();
+
+
+useEffect(() => {
+  if (loggedIn) {
+    navigate('/feed');
+  }
+}, [loggedIn, navigate]);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    const data ={
+    email: email.current.value,
+    password: password.current.value,
+    }
+
+    console.log("handle click");
+    
+    try{
+      const res = await compareLoginToDatabase(data);
+      console.log("RES");
+      console.log(res);
+      if (res) {
+        localStorage.setItem("token", res.token);
+        handleLogin(true);
+      }
+    }catch(error){
+      showNotification("ERROR", "error");
+  }
+};
+  
 
   return (
     <div className="login">
-      <h1>LoginToApp</h1>
+      <h1>Login</h1>
 
       <p>
         Kurze App-Beschreibung. Lorem ipsum dolor sit amet, consetetur
@@ -14,26 +51,23 @@ export default function LoginToApp() {
         dolore magna aliquyam erat, sed diam voluptua.
       </p>
 
-      <input ref={username} id="username" type="text" placeholder="Username" />
+      
+      <input ref={email} id="email" type="email" placeholder="E-Mail"/>
 
       <input
         ref={password}
         id="password"
         type="password"
         placeholder="Password"
+       
       />
 
-      <button
-        onClick={() => {
-          console.log(username.current.value);
-          console.log(password.current.value);
-        }}
-      >
-        Login
-      </button>
+      <button onClick={handleClick}>Login</button>
 
       <a href="/login">Forgot Password?</a>
-      <p>Don't have an account yet? <a href="/register">Register here.</a> </p>
+      <p>
+        Don't have an account yet? <a href="/register">Register here.</a>{" "}
+      </p>
     </div>
   );
 }

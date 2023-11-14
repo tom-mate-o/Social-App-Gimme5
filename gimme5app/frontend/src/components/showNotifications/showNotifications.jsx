@@ -1,7 +1,6 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './costumToastifyCss.css'; 
-import { MdDelete } from 'react-icons/md';
 
 
 

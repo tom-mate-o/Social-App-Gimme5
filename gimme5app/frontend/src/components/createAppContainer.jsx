@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import { Routes, Route, NavLink, BrowserRouter } from "react-router-dom";
 import Feed from "../components/pages/feed";
 import NewPost from "./pages/newpost";
@@ -17,7 +18,26 @@ import logo from "../assets/img/g5-logo.svg";
 import { ToastContainer } from 'react-toastify';
 
 export default function AppContainer() {
-  console.log();
+
+  // get token from local storage and set state to true if token is present
+  const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setLoggedIn(true);
+      console.log("token is present setLoggedIn: " + setLoggedIn);
+    }
+  }, [])
+    const handleLogout = () => {
+      setLoggedIn(false);
+      localStorage.removeItem("token");
+    };
+    const handleLogin = () => {
+      setLoggedIn(true);
+      console.log("handleLogin: " + setLoggedIn);
+    };
+  
+
   return (
     <div>
       <BrowserRouter>
@@ -60,9 +80,10 @@ export default function AppContainer() {
         </Navbar>
         <ContentContainer className="content">
           <Routes>
-            <Route path="/" element={<Feed />} />
+            <Route path="/" element={loggedIn ? <Feed/> : <Login replace/>} />
+            <Route path="/feed" element={loggedIn ? <Feed handleLogout={handleLogout}/> : <Login replace/>} />
             <Route path="/newpost" element={<NewPost />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login handleLogin={handleLogin} loggedIn={loggedIn} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/search" element={<Search />} />

@@ -1,13 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import LoginToApp from "../login/loginToApp";
  
-export default class Login extends Component {
-  render() {
+const Login = ({handleLogin, loggedIn}) => {
     return (
       
-        <LoginToApp/>
+        <LoginToApp handleLogin={handleLogin} loggedIn={loggedIn}/>
      
     );
   }
-}
- 
+
+export default Login;
