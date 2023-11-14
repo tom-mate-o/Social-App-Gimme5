@@ -29,14 +29,11 @@ useEffect(() => {
     
     try{
       const res = await compareLoginToDatabase(data);
-      console.log("RES");
-      console.log(res);
       if (res) {
         localStorage.setItem("token", res.token);
         handleLogin(true);
       }
     }catch(error){
-      console.log("Error logging in: ", error);
       showNotification("ERROR", "error");
   }
 };

@@ -25,7 +25,6 @@ export default function AppContainer() {
     const token = localStorage.getItem("token");
     if (token) {
       setLoggedIn(true);
-      console.log("token is present setLoggedIn: " + setLoggedIn);
     }
   }, [])
     const handleLogout = () => {
@@ -34,7 +33,6 @@ export default function AppContainer() {
     };
     const handleLogin = () => {
       setLoggedIn(true);
-      console.log("handleLogin: " + setLoggedIn);
     };
   
 
