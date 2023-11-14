@@ -1,0 +1,18 @@
+.post_content {
+    background-color: #E8E8E8;
+    border-radius: 30px;
+    padding: 20px 30px;
+    margin-bottom: 10px;
+}
+
+.social-icons .stars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.social-icons svg {
+    width: 24px;
+    height: 24px;
+}

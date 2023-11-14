@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 export const SocialBar = styled.div`
-    border: 1px solid black;
-    background-color: #ffbf69;
+    margin-top: 5px;
+    color: #FFFFFF;
     display: flex;
     justify-content: space-between;
+    gap: 40px;
     `;
