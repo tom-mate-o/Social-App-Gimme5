@@ -80,7 +80,7 @@ export default function AppContainer() {
         </Navbar>
         <ContentContainer className="content">
           <Routes>
-            <Route path="/" element={loggedIn ? <Feed/> : <Login replace/>} />
+            <Route path="/" element={loggedIn ? <Feed/> : <Login handleLogin={handleLogin} loggedIn={loggedIn} replace/>} />
             <Route path="/feed" element={loggedIn ? <Feed handleLogout={handleLogout}/> : <Login replace/>} />
             <Route path="/newpost" element={<NewPost />} />
             <Route path="/login" element={<Login handleLogin={handleLogin} loggedIn={loggedIn} />} />

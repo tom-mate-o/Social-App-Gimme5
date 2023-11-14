@@ -36,6 +36,7 @@ useEffect(() => {
         handleLogin(true);
       }
     }catch(error){
+      console.log("Error logging in: ", error);
       showNotification("ERROR", "error");
   }
 };
