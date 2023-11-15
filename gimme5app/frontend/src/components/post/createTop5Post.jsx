@@ -15,7 +15,7 @@ import { SocialBar } from "../../styled/posts/socialBar";
 // Costum Hooks
 import useMondoDBData from "../customHooks/useMondoDBData";
 
-export default function CreateTop5Post({handleLogout}) {
+export default function CreateTop5Post() {
     const [topFivePosts, setTopFivePosts] = useMondoDBData([]);
     const onDelete = async (topFiveId) => {
         try {

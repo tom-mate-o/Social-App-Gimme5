@@ -8,6 +8,7 @@ import Register from "../components/pages/register";
 import Profile from "../components/pages/profile";
 import Settings from "../components/pages/settings";
 import Search from "../components/pages/search";
+import showNotification from "./showNotifications/showNotifications";
 
 /// Styled Components
 import { Navbar } from "../styled/Navbar";
@@ -30,6 +31,7 @@ export default function AppContainer() {
     const handleLogout = () => {
       setLoggedIn(false);
       localStorage.removeItem("token");
+      showNotification("Bye, for now! 👋", "");
     };
     const handleLogin = () => {
       setLoggedIn(true);
@@ -71,6 +73,10 @@ export default function AppContainer() {
               </li>
 
               <li>
+                <NavLink to="/login" onClick={handleLogout}>Logout</NavLink>
+              </li>
+
+              <li>
                 <NavLink to="/register">Register</NavLink>
               </li>
             </ul>
@@ -79,7 +85,7 @@ export default function AppContainer() {
         <ContentContainer className="content">
           <Routes>
             <Route path="/" element={loggedIn ? <Feed/> : <Login handleLogin={handleLogin} loggedIn={loggedIn} replace/>} />
-            <Route path="/feed" element={loggedIn ? <Feed handleLogout={handleLogout}/> : <Login replace/>} />
+            <Route path="/feed" element={loggedIn ? <Feed /> : <Login replace/>} />
             <Route path="/newpost" element={<NewPost />} />
             <Route path="/login" element={<Login handleLogin={handleLogin} loggedIn={loggedIn} />} />
             <Route path="/register" element={<Register />} />
