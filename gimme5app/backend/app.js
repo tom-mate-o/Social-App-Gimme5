@@ -6,6 +6,7 @@ const port = process.env.PORT;
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
+const Filter = require('bad-words');
 
 // JSON WEB Token - JWT
 const jwt = require('jsonwebtoken');
@@ -84,19 +85,17 @@ const avatar = multer({ storage });
       type: String,
       required: true,
       minlength: 3,
-      maxlength: 50,
+      maxlength: 25,
     },
     firstname: {
       type: String,
       required: true,
       minlength: 3,
-      maxlength: 50,
+      maxlength: 25,
     },
     lastname: {
       type: String,
       required: false,
-      minlength: 3,
-      maxlength: 50,
     },
     hashedPassword: {
       type: String,
@@ -238,27 +237,34 @@ app.post("/api/login", async (req, res) => {
 // Middleware für multipart formdata
 app.use(express.urlencoded({ extended: true }));
 
+const filter = new Filter();
+
 app.post("/api/register", avatar.single("avatar"), async (req, res) => { 
-  console.log(req.body); // Textfelder des Formulars
-  console.log(req.file); // Hochgeladene Dateien
 
   try{
-  
     const {id, avatar, username, firstname, lastname, password, email, location, role} = req.body;
-    
-    if(! id || !username || !firstname || !lastname || !password || !email || !location || !role) {
-    return res.status(404).send({message: "Required Field Missing"});
-      }
+  
+    if(! id || !username || !firstname || !password || !email || !role) {
+      return res.status(400).send({message: "Required Field Missing"});
+    }
 
+    // Überprüfen ob der Benutzername Hatespeech enthält
+    if(filter.isProfane(username)) {
+      return res.status(406).send({message: "Username contains inappropriate language"});
+    }
+  
+    const existingUser = await UserModel.findOne({username});
+    if(existingUser) {
+      return res.status(409).send({message: "User already exists"});
+    }
+
+    const existingEmail = await UserModel.findOne({email});
+    if(existingEmail) {
+      return res.status(422).send({message: "E-Mail already exists"});
+    }
+  
     const avatarUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
-    console.log(avatarUrl); // ✅
-
-
-    // const existingUser = await User.findOne({email});
-    // console.log('Existing user', existingUser);
-    // if(existingUser) {
-    // return res.status(409).send({message: "User already exists"});
-    //   }
+    console.log(avatarUrl);
 
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log(hashedPassword); 

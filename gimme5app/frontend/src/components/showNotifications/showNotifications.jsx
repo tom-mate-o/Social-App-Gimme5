@@ -40,6 +40,25 @@ export default function showNotification(message, type) {
         
     };
 
+
+    const customwarn = {
+      position: "bottom-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      style: {
+          fontSize: '15px',
+          backgroundColor: "darkorange",
+          whiteSpace: 'pre-wrap',
+      },
+      className: 'custom-toast'
+      
+  };
+
     switch(type) {
         case 'success':
           toast.success(message, customsuccess);
@@ -51,7 +70,7 @@ export default function showNotification(message, type) {
           toast.info(message, options);
           break;
         case 'warn':
-          toast.warn(message, options);
+          toast.warn(message, customwarn);
           break;
         default:
           toast(message, options);
