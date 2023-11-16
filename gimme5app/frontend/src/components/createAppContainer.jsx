@@ -1,3 +1,5 @@
+//createAppContainer.jsx
+
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Routes, Route, NavLink, BrowserRouter } from "react-router-dom";
@@ -9,6 +11,7 @@ import Profile from "../components/pages/profile";
 import Settings from "../components/pages/settings";
 import Search from "../components/pages/search";
 import showNotification from "./showNotifications/showNotifications";
+import UsernameContext from "./userName/userNameContext";
 
 /// Styled Components
 import { Navbar } from "../styled/Navbar";
@@ -19,6 +22,14 @@ import logo from "../assets/img/g5-logo.svg";
 import { ToastContainer } from 'react-toastify';
 
 export default function AppContainer() {
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
 
   // get token from local storage and set state to true if token is present
   const [loggedIn, setLoggedIn] = useState(false);
@@ -41,6 +52,7 @@ export default function AppContainer() {
   return (
     <div>
       <BrowserRouter>
+      <UsernameContext.Provider value={{ username, setUsername }}>
         <Navbar className="navbar">
           <NavbarLogo>
             <img src={logo} alt="GIMME5 Logo" />
@@ -94,6 +106,7 @@ export default function AppContainer() {
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </ContentContainer>
+        </UsernameContext.Provider>
       </BrowserRouter>
     </div>
   );

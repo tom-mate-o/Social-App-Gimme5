@@ -18,6 +18,7 @@ const multer = require('multer');
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use('/uploads', express.static('uploads')); // Damit die Bilder aus dem Ordner uploads im Browser angezeigt werden können
 
 // Speichern der Dateien im Ordner uploads
 const storage = multer.diskStorage({
@@ -159,6 +160,7 @@ app.delete("/deletetopfive/:id", async (req, res) => {
     res.status(500).send({"message": "Error while deleting TopFive List from DB"});
   }
 });
+
   
 
 // Routen
@@ -280,5 +282,31 @@ app.post("/api/register", avatar.single("avatar"), async (req, res) => {
   } catch (error) {
     res.status(500).send({message: "Error while creating User"});
 }
+});
+
+// Methode um UserData aus der DB zu lesen
+
+app.get("/getuserdata", async (req, res) => {
+  try{
+    const getUserData = await UserModel.find({});
+    console.log("user data loaded");
+    res.status(200).send({"message": "UserData successfully fetched from DB", "data": getUserData}); 
+  } catch {
+    res.status(500).send({"message": "Error while fetching UserData Lists from DB"});
+  }
+}
+);
+
+// Methode um UserName aus der DB zu lesen
+
+app.get("/getusername", async (req, res) => {
+  try{
+    const email = req.query.email;
+    const getUserData = await UserModel.find({email: email});
+    console.log("user data loaded");
+    res.status(200).send({"message": "UserData successfully fetched from DB", "data": getUserData}); 
+  } catch {
+    res.status(500).send({"message": "Error while fetching UserData Lists from DB"});
+  }
 });
 

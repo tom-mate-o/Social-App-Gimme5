@@ -1,7 +1,11 @@
-import React, { useRef, useEffect } from "react";
+//loginToApp.jsx
+
+import React, { useRef, useEffect, useContext } from "react";
 import { compareLoginToDatabase } from "../../utils/compareLoginToDatabase";
 import showNotification from "../showNotifications/showNotifications";
 import { useNavigate } from "react-router-dom";
+import UsernameContext from "../userName/userNameContext";
+import { getUserNameFromDatabase } from "../../utils/getUserNameFromDatabase";
 
 
 export default function LoginToApp({handleLogin, loggedIn}) {
@@ -9,6 +13,7 @@ export default function LoginToApp({handleLogin, loggedIn}) {
   const email = useRef();
   const password = useRef();
   const navigate = useNavigate();
+  const {setUsername} = useContext(UsernameContext);
 
 
 useEffect(() => {
@@ -32,6 +37,10 @@ useEffect(() => {
       if (res) {
         localStorage.setItem("token", res.token);
         handleLogin(true);
+        const username = await getUserNameFromDatabase(data.email);
+        setUsername(username);
+        localStorage.setItem("username", username);
+        
       }
     }catch(error){
       showNotification("ERROR", "error");

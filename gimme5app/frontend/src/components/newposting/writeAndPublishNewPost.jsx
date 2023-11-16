@@ -1,6 +1,9 @@
-import React, {useRef} from "react";
+//writeAndPublishNewPost.jsx
+
+import React, {useRef, useContext} from "react";
 import { addTopFiveToDatabase } from "../../utils/addTopFiveToDatabase";
 import {v4 as uuidv4} from "uuid";
+import UsernameContext from "../userName/userNameContext";
 
 export default function WriteAndPublishNewPost() {
     const refcategory = useRef();
@@ -12,6 +15,7 @@ export default function WriteAndPublishNewPost() {
     const ref5thplace = useRef();
     const refhashtags = useRef();
     const refPostPrivate = useRef();
+    const {username} = useContext(UsernameContext);
 
 
     function handleButtonClick(){
@@ -29,7 +33,7 @@ export default function WriteAndPublishNewPost() {
 
         const newPost = {
             id: uuidv4(),
-            user: "user1",
+            user: username,
             category,
             subcategory,
             list: [{ place1, place2, place3, place4, place5 }],

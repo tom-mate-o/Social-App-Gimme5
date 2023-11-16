@@ -7,6 +7,8 @@ import PostInfoComponent from "../post/postInfoComponent";
 import PostCategoryComponent from "./postCategoryComponent";
 import DeleteTopFive from "../delete/deleteTopFive";
 import { deleteTopFiveFromDatabase } from "../../utils/deleteTopFiveFromDatabase";
+import { useEffect } from "react";
+import { findAvatarUrl } from "../../utils/findAvatarUrlOfUser";
 
 //Styled Components
 import { Post } from "../../styled/posts/post";
@@ -14,9 +16,19 @@ import { SocialBar } from "../../styled/posts/socialBar";
 
 // Costum Hooks
 import useMondoDBData from "../customHooks/useMondoDBData";
+import useMongoDBUserData from "../customHooks/useMongoDBUserData";
 
 export default function CreateTop5Post() {
     const [topFivePosts, setTopFivePosts] = useMondoDBData([]);
+    const [userData, setUserData] = useMongoDBUserData([]);
+
+    useEffect(() => {
+        if (userData) {
+        }
+      }, [userData]);
+
+
+
     const onDelete = async (topFiveId) => {
         try {
             await deleteTopFiveFromDatabase(topFiveId);
@@ -32,8 +44,14 @@ export default function CreateTop5Post() {
             {topFivePosts.slice().reverse().map((post, index) => (
                 <Post key={index}>
                     <div className="post_content">
+                    <div className="post_top_row">
+                        <div className="avatar_username_container">
+                        <div>{post.user && <img src={findAvatarUrl(post.user, userData)} className="useravatar" alt={post.user} />}</div>
+                        <div><PostInfoComponent user={post.user} /></div>
+                        </div>
                         <DeleteTopFive onDelete={() => onDelete(post.id)} />
-                        <PostInfoComponent user={post.user} />
+                    </div>
+                        
                         <PostCategoryComponent category={post.category} />
                         <PostTitleComponent title={post.subcategory} />
                         <FiveListComponent list={post.list} />
