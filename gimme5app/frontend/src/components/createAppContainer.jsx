@@ -97,13 +97,13 @@ export default function AppContainer() {
         <ContentContainer className="content">
           <Routes>
             <Route path="/" element={loggedIn ? <Feed/> : <Login handleLogin={handleLogin} loggedIn={loggedIn} replace/>} />
-            <Route path="/feed" element={loggedIn ? <Feed /> : <Login replace/>} />
-            <Route path="/newpost" element={<NewPost />} />
+            <Route path="/feed" element={loggedIn ? <Feed /> : <Login handleLogin={handleLogin} loggedIn={loggedIn} replace/>} />
+            <Route path="/newpost" element={loggedIn ? <NewPost /> : <Login handleLogin={handleLogin} loggedIn={loggedIn} replace/>} />
             <Route path="/login" element={<Login handleLogin={handleLogin} loggedIn={loggedIn} />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={loggedIn ? <Settings /> : <Login handleLogin={handleLogin} loggedIn={loggedIn} replace/>} />
+            <Route path="/search" element={loggedIn ? <Search /> : <Login handleLogin={handleLogin} loggedIn={loggedIn} replace/>} />
+            <Route path="/profile" element={loggedIn ? <Profile /> : <Login handleLogin={handleLogin} loggedIn={loggedIn} replace/>} />
           </Routes>
         </ContentContainer>
         </UsernameContext.Provider>
