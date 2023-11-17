@@ -31,6 +31,8 @@ export default function AppContainer() {
     }
   }, []);
 
+  
+
   // get token from local storage and set state to true if token is present
   const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
@@ -39,14 +41,22 @@ export default function AppContainer() {
       setLoggedIn(true);
     }
   }, [])
+
+    const loginClass = loggedIn ? "link_login_hidden" : "link_login";
+    const registerClass = loggedIn ? "link_register_hidden" : "link_register";
+    const logoutClass = loggedIn ? "link_logout" : "link_logout_hidden";
+
     const handleLogout = () => {
       setLoggedIn(false);
       localStorage.removeItem("token");
+      localStorage.removeItem("username");
       showNotification("Bye, for now! 👋", "");
     };
     const handleLogin = () => {
       setLoggedIn(true);
-    };
+
+    }
+
   
 
   return (
@@ -81,16 +91,18 @@ export default function AppContainer() {
               </li>
 
               <li>
-                <NavLink to="/login">Login</NavLink>
+                <NavLink className={loginClass} to="/login">Login</NavLink>
               </li>
 
               <li>
-                <NavLink to="/login" onClick={handleLogout}>Logout</NavLink>
+                <NavLink className={registerClass} to="/register">Register</NavLink>
               </li>
 
               <li>
-                <NavLink to="/register">Register</NavLink>
+                <NavLink className={logoutClass} to="/login" onClick={handleLogout}>Logout</NavLink>
               </li>
+
+
             </ul>
           </NavigationIcons>
         </Navbar>

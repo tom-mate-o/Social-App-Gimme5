@@ -51,6 +51,8 @@
     content: url('../icons/user.svg');
 }
 
+
+
 @media (max-width: 922px) and (orientation: portrait) {
     .navbar {
         display: flex;
@@ -79,3 +81,4 @@
         text-indent: 0;
     }
 }
+

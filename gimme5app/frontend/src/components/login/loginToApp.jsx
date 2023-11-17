@@ -6,6 +6,7 @@ import showNotification from "../showNotifications/showNotifications";
 import { useNavigate } from "react-router-dom";
 import UsernameContext from "../userName/userNameContext";
 import { getUserNameFromDatabase } from "../../utils/getUserNameFromDatabase";
+import logo from "../../assets/img/g5-logo.svg";
 
 
 export default function LoginToApp({handleLogin, loggedIn}) {
@@ -30,7 +31,6 @@ useEffect(() => {
     password: password.current.value,
     }
 
-    console.log("handle click");
     
     try{
       const res = await compareLoginToDatabase(data);
@@ -50,26 +50,38 @@ useEffect(() => {
 
   return (
     <div className="login">
-      <h1>Login</h1>
+  
 
-      <p>
-        Kurze App-Beschreibung. Lorem ipsum dolor sit amet, consetetur
-        sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-        dolore magna aliquyam erat, sed diam voluptua.
+      <img src={logo} alt="GIMME5 Logo" />
+
+      <p style={{textAlign: 'center'}}>
+        <h3>Welcome to Gimme 5!</h3>
+        <br />
+        Gimme 5 is your go-to social media platform for creating and sharing Top
+        5 lists. Whether it's your favorite movies, travel destinations, or
+        music tracks, express yourself by curating and showcasing your top
+        picks. Dive into the world of Gimme 5, where your lists become
+        conversations and connections. 
+        <br />
+        <br />
+        Ready to share your favorites? 
+        <br />
+        Log in and
+        let the countdown begin!
       </p>
 
-      
-      <input ref={email} id="email" type="email" placeholder="E-Mail"/>
+      <form className="register-form" onSubmit={handleClick}>
+        <input ref={email} id="email" type="email" placeholder="E-Mail" />
 
-      <input
-        ref={password}
-        id="password"
-        type="password"
-        placeholder="Password"
-       
-      />
+        <input
+          ref={password}
+          id="password"
+          type="password"
+          placeholder="Password"
+        />
 
-      <button onClick={handleClick}>Login</button>
+        <button type="submit">Login</button>
+      </form>
 
       <a href="/login">Forgot Password?</a>
       <p>
