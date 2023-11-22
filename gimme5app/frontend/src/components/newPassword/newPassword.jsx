@@ -80,6 +80,10 @@ export default function NewPassword() {
     // das neue Passwort, das der User eigegeben hat wird abgegriffen.
     // es muss mit beiden Feldern übereinstimmen. Das wird oben definiert. (isEqual)
     const password = formRef.current.password1.value;
+    if (equal === false) {
+      showNotification("Passwords do not match", "warn");
+      return;
+    }
 
      //config object for post request
       const config = {
@@ -116,18 +120,29 @@ export default function NewPassword() {
 
 
   return (
-    <div className='login'>
+    <div className="login">
       <h3>Reset Password</h3>
       {page === "email" && (
-        <form className="newpassword" ref={formRef} onSubmit={(event) => onClickEmail(event, formRef)} >
-          <p>Type in your E-Mail. We'll send you a 6-Digit Code to reset your Password.</p>
+        <form
+          className="newpassword"
+          ref={formRef}
+          onSubmit={(event) => onClickEmail(event, formRef)}
+        >
+          <p>
+            Type in your E-Mail. We'll send you a 6-Digit Code to reset your
+            Password.
+          </p>
           <input type="email" name="email" placeholder="E-Mail" />
           <button type="submit">Next</button>
         </form>
       )}
 
       {page === "code" && (
-        <form className="newpassword" ref={formRef} onSubmit={(event) => onClickCode(event, formRef)} >
+        <form
+          className="newpassword"
+          ref={formRef}
+          onSubmit={(event) => onClickCode(event, formRef)}
+        >
           <p>Please type in the 6-Digit Code you recieved by E-Mail.</p>
           <input type="text" name="code" placeholder="Code" />
           <button type="submit">Next</button>
@@ -135,11 +150,33 @@ export default function NewPassword() {
       )}
 
       {page === "newpassword" && (
-        <form className="newpassword" ref={formRef} onSubmit={(event) => onClickNewPassword(event, formRef)}>
+        <form
+          className="newpassword"
+          ref={formRef}
+          onSubmit={(event) => onClickNewPassword(event, formRef)}
+        >
           <p>Please type in your new Password.</p>
           <p>(6 Digits and at least one capital Letter)</p>
-          <input type="password" name="password1"  placeholder="New Password" onChange={() => checkPassword(formRef.current, setEqual)} />
-          <input type="password" name="password2" placeholder="Repeat New Password" onChange={() => checkPassword(formRef.current, setEqual)} />
+          <input
+            type="password"
+            name="password1"
+            placeholder="New Password"
+            required
+            minlength="6"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+            title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters"
+            onChange={() => checkPassword(formRef.current, setEqual)}
+          />
+          <input
+            type="password"
+            name="password2"
+            placeholder="Repeat New Password"
+            required
+            minlength="6"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+            title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters"
+            onChange={() => checkPassword(formRef.current, setEqual)}
+          />
           <button type="submit">Submit</button>
         </form>
       )}
