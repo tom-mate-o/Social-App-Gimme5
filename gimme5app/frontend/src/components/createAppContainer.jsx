@@ -10,6 +10,7 @@ import Register from "../components/pages/register";
 import Profile from "../components/pages/profile";
 import Settings from "../components/pages/settings";
 import Search from "../components/pages/search";
+import NewPassword from "./newPassword/newPassword";
 import showNotification from "./showNotifications/showNotifications";
 import UsernameContext from "./userName/userNameContext";
 
@@ -57,6 +58,7 @@ export default function AppContainer() {
 
     }
 
+    const hi = "hiiiii";
   
 
   return (
@@ -113,6 +115,7 @@ export default function AppContainer() {
             <Route path="/newpost" element={loggedIn ? <NewPost /> : <Login handleLogin={handleLogin} loggedIn={loggedIn} replace/>} />
             <Route path="/login" element={<Login handleLogin={handleLogin} loggedIn={loggedIn} />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgotpassword" hi={hi} element={<NewPassword />} />
             <Route path="/settings" element={loggedIn ? <Settings /> : <Login handleLogin={handleLogin} loggedIn={loggedIn} replace/>} />
             <Route path="/search" element={loggedIn ? <Search /> : <Login handleLogin={handleLogin} loggedIn={loggedIn} replace/>} />
             <Route path="/profile" element={loggedIn ? <Profile /> : <Login handleLogin={handleLogin} loggedIn={loggedIn} replace/>} />

@@ -53,9 +53,9 @@ useEffect(() => {
   
 
       <img src={logo} alt="GIMME5 Logo" />
-
+      <h3>Welcome to Gimme 5!</h3>
       <p style={{textAlign: 'center'}}>
-        <h3>Welcome to Gimme 5!</h3>
+        
         <br />
         Gimme 5 is your go-to social media platform for creating and sharing Top
         5 lists. Whether it's your favorite movies, travel destinations, or
@@ -83,7 +83,7 @@ useEffect(() => {
         <button type="submit">Login</button>
       </form>
 
-      <a href="/login">Forgot Password?</a>
+      <a href="/forgotpassword">Forgot Password?</a>
       <p>
         Don't have an account yet? <a href="/register">Register here.</a>{" "}
       </p>

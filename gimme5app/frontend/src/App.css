@@ -58,7 +58,8 @@ button:hover {
 
 .newPost,
 .login,
-.register {
+.register,
+.newpassword {
   background-color: black;
   color: white;
   display: flex;
@@ -68,6 +69,14 @@ button:hover {
   padding-top: 30px;
 }
 
+a {
+  color: #13C460;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #13C460;
+}
 
 
 

@@ -7,7 +7,7 @@ import './costumToastifyCss.css';
 export default function showNotification(message, type) {
     const options = {
         position: "bottom-right",
-        autoClose: 1000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -24,7 +24,7 @@ export default function showNotification(message, type) {
 
     const customsuccess = {
         position: "bottom-right",
-        autoClose: 1000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -43,7 +43,7 @@ export default function showNotification(message, type) {
 
     const customwarn = {
       position: "bottom-right",
-      autoClose: 1000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
