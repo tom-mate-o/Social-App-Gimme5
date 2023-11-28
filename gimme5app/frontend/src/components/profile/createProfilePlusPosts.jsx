@@ -50,10 +50,6 @@ export default function CreateProfilePlusPosts() {
                 <Post key={index}>
                     <div className="post_content">
                     <div className="post_top_row">
-                        {/* <div className="avatar_username_container">
-                        <div>{post.user && <img src={findAvatarUrl(post.user, userData)} className="useravatar" alt={post.user} />}</div>
-                        <div><PostInfoComponent user={post.user} /></div>
-                        </div> */}
                         <DeleteTopFive onDelete={() => onDelete(post.id)} />
                     </div>
                         
@@ -63,7 +59,7 @@ export default function CreateProfilePlusPosts() {
                     </div>
                     <SocialBar>
                         <HashtagCloudComponent hashtags={post.hashtags} />
-                        <InteractButtonsComponent likes={post.likes} />
+                        <InteractButtonsComponent likes={post.likes} id={post.id} topFivePosts={topFivePosts} setTopFivePosts={setTopFivePosts}/>
                     </SocialBar>
                 </Post>
             ))}

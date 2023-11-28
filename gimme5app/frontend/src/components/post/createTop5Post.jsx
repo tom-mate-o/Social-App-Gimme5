@@ -58,7 +58,7 @@ export default function CreateTop5Post() {
                     </div>
                     <SocialBar>
                         <HashtagCloudComponent hashtags={post.hashtags} />
-                        <InteractButtonsComponent likes={post.likes} />
+                        <InteractButtonsComponent likes={post.likes} id={post.id} topFivePosts={topFivePosts} setTopFivePosts={setTopFivePosts}/>
                     </SocialBar>
                 </Post>
             ))}

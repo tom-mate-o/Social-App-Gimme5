@@ -113,6 +113,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ["user", "admin"],
   },
+  likedPostsIds:{
+    type: Array,
+    default: [],
+  }
 });
 
 const UserModel = connection.model("usercollection", userSchema); // UserCollection ist der Namer der Collection in der DB
@@ -302,6 +306,45 @@ app.put("/api/auth/reset/newpassword", async (req, res) => {
   
 });
 
+// Route zum Liken der Posts --------------------------------------------
+
+app.put("/api/:id/likepost", async (req, res) => {
+  try {
+    // get value from param, header
+    const id = req.params.id;
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await UserModel.findOne({ id: decodedToken.id });
+
+    console.log('token:', token); 
+    console.log('decodedToken.id:', decodedToken.id);
+    console.log('id:', id);
+console.log('user:', user);
+
+    if (!user.likedPostsIds.includes(id)){ // wenn es die PostID noch nicht im Array des Users gibt
+      const post = await TopFive.findOneAndUpdate({id: id}, {$inc: {likes: 1}}); // likes um 1 erhöhen
+
+      if (!post) {
+        return res.status(404).send({ message: "Post not found" });
+      }
+      // postId dem Array des Users hinzufügen
+      user.likedPostsIds.push(id);
+      await user.save();
+      res.status(200).send({ message: "Post liked successfully" });
+    }
+    else{
+      // Like wieder von Post zurücknehmen
+      const post = await TopFive.findOneAndUpdate({id: id}, {$inc: {likes: -1}});
+      if (post){
+        user.likedPostsIds.pull(id);
+        await user.save();
+      }
+      return res.status(201).send({ message: "Post unliked successfully" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: "Error while liking post" });
+  }
+});
 
 
 // POST Register ----------------------------------------------

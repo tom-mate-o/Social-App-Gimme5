@@ -6,4 +6,9 @@ export const SocialBar = styled.div`
     display: flex;
     justify-content: space-between;
     gap: 40px;
+
+    .stars:hover {
+        color: #13C460;
+        cursor: pointer;
+    }
     `;
