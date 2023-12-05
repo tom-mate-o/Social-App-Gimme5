@@ -75,6 +75,7 @@
     .main-navigation li a {
         text-indent: -9999px;
         gap: 0;
+
     }
 
     .main-navigation li a:before {

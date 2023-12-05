@@ -3,13 +3,14 @@ import { useState } from "react";
 import { BiPaperPlane } from "react-icons/bi";
 import { BiStar, BiSolidStar } from "react-icons/bi";
 import { BiBookmark } from "react-icons/bi";
+import { HiOutlineChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
 import axios from "axios";
 import showNotification from "../showNotifications/showNotifications";
 import { getUserDataFromDatabase } from "../../utils/getUserDataFromDatabase";
 
 // Styled Components
 import { InteractButtons } from "../../styled/posts/interactButtons";
-
+import BasicModal from "../comments/commentsModal";
 
 
 
@@ -20,6 +21,8 @@ export default function InteractButtonsComponent({ likes: initalLikes, id, topFi
   const [userDatabase, setUserDatabase] = useState(null);
   const [likeClicked, setLikeClicked] = useState(false); // Variable die checkt ob like geklickt wurde
   const [likeRemoved, setLikeRemoved] = useState(false); // Variable die checkt ob like entfernt wurde
+
+
 
   // User Data wird geladen um breits gelikte Posts grün anzuzeigen
   useEffect(() => {
@@ -98,6 +101,7 @@ export default function InteractButtonsComponent({ likes: initalLikes, id, topFi
       {(likeClicked || userHasLikedPost(id) && !likeRemoved) ? <BiSolidStar style={{color: "#13C460"}}/> : <BiStar />}
         <p>{likes}</p>
       </div>
+      <BasicModal topFivePosts={topFivePosts} setTopFivePosts={setTopFivePosts} likes={initalLikes} id={id}/>
       <BiPaperPlane />
       <BiBookmark />
     </InteractButtons>

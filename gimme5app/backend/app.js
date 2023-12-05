@@ -62,6 +62,7 @@ const topFiveSchema = new mongoose.Schema({
   hashtags: [String],
   likes: Number,
   postprivate: Boolean,
+  comments: [{commentId: String, user: String, timestamp: String, comment: String}],
 });
 
 const TopFive = connection.model("TopFiveCollection", topFiveSchema); // TopFiveCollection ist der Namer der Collection in der DB
@@ -134,6 +135,25 @@ app.post("/addtopfive", async (req, res) => {
   }
 });
 
+// Methode um Comments in die TopFive Liste in der DB zu schreiben
+
+app.post("/api/addcomment", async (req, res) => {
+  try {
+    const {id, commentId, user, timestamp, comment} = req.body;
+    const post = await TopFive.findOneAndUpdate(
+      {id: id}, 
+      {$push: {comments: 
+        {commentId: commentId, user: user, timestamp: timestamp, comment: comment}
+      }});
+    res.status(201).send({ message: "Comment added successfully to DB" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Error while adding Comment to DB" });
+  }
+});
+
+
+
 // Methode um  TopFive Listen aus der DB zu lesen
 
 app.get("/gettopfives", async (req, res) => {
@@ -166,6 +186,26 @@ app.delete("/deletetopfive/:id", async (req, res) => {
     res
       .status(500)
       .send({ message: "Error while deleting TopFive List from DB" });
+  }
+});
+
+app.delete("/deletecomment/:id", async (req, res) => {
+  try {
+    const topFiveId = req.params.id;
+    console.log(topFiveId);
+    const commentId = req.body.commentId;
+    console.log(commentId);
+    await TopFive.findOneAndUpdate(
+      { id: topFiveId },
+      { $pull: { comments: { commentId: commentId } } }
+    );
+    res
+      .status(200)
+      .send({ message: "Comment deleted from DB" });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error while deleting comment from DB" });
   }
 });
 
