@@ -39,6 +39,7 @@ const style = {
   fontFamily: 'sans-serif',
   color: 'white',
   overflowY: 'auto',
+  
 };
 
 export default function BasicModal({likes, id, topFivePosts, setTopFivePosts, countComments, setCountComments}) {
@@ -157,7 +158,9 @@ export default function BasicModal({likes, id, topFivePosts, setTopFivePosts, co
                 <p>
                   {comment.comment}
                 </p>
+              <div className="commentdelete">
                 <DeleteTopFive onDelete={() => onDelete(id, comment.commentId)} />
+                </div>
               </div>
               </CommentContainer>
             ))}

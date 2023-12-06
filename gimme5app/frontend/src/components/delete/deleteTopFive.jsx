@@ -9,6 +9,6 @@ export default function DeleteTopFive({onDelete}) {
     }
 
     return (
-        <HiOutlineTrash onClick={handleDeleteClick}/>
+        <HiOutlineTrash className="trashicon" onClick={handleDeleteClick}/>
     );
 }

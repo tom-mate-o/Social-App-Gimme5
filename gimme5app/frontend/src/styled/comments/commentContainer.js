@@ -7,7 +7,12 @@ export const CommentContainer = styled.div`
     height: auto;
     border-radius: 30px;
     margin-bottom: 20px;
-    
+
+    .commentdelete {
+        display: flex;
+        justify-content: flex-end;
+      }
+
 
 
     `;

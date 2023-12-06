@@ -86,4 +86,14 @@ a:visited {
   color: #13C460;
 }
 
+.trashicon {
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.trashicon:hover {
+  transform: scale(1.5);
+}
+
+
 
