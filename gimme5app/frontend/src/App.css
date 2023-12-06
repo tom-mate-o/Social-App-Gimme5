@@ -67,6 +67,14 @@ button:hover {
   align-items: center;
   gap: 20px;
   padding-top: 30px;
+  max-width: 200px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 a {

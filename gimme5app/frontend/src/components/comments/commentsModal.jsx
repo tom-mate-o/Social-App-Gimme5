@@ -174,6 +174,7 @@ export default function BasicModal({likes, id, topFivePosts, setTopFivePosts, co
                 required={true}
                 minLength={4}
                 maxLength={250}
+                style={{width: "300px"}}
               />
             </CommentInput>
           </form>
