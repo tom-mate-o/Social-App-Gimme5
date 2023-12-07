@@ -173,6 +173,51 @@ app.get("/gettopfives", async (req, res) => {
   }
 });
 
+// Methode um zu Checken ob der User den zu löschenden Beitrag erstellt hat
+
+app.post("/api/checkuser", async (req, res) => {
+  const currentUsername = req.body.currentUsername;
+  const postID = req.body.id;
+  const post = await TopFive.findOne({ id: postID });
+
+  if (!post) {
+    return res.status(404).send({ message: "Post not found" });
+  }
+
+  if (post.user === currentUsername) {
+    return res.status(200).send({ message: "User is allowed to delete post" });
+  } else {
+    return res.status(401).send({ message: "User is not allowed to delete post" });
+  }
+});
+
+// Methode um zu Checken ob der User den zu löschenden Kommentar erstellt hat
+
+app.post("/api/checkuseroncomment", async (req, res) => {
+  const currentUsername = req.body.currentUsername;
+  const postID = req.body.postId;
+  const commentId = req.body.commentId;
+  const post = await TopFive.findOne(
+    { id: postID }, 
+    {comments: {$elemMatch: {commentId: commentId}}}
+    );
+  if (!post) {
+    return res.status(404).send({ message: "Post not found" });
+  } 
+  
+  const comment = post.comments.find(comment => comment.commentId === commentId);
+
+  if (!comment) {
+    return res.status(404).send({ message: "Comment not found" });
+  }
+
+  if (comment.user === currentUsername) {
+    return res.status(200).send({ message: "User is allowed to delete post" });
+  } else {
+    return res.status(401).send({ message: "User is not allowed to delete post" });
+  }
+});
+
 // Methode um eine TopFive Liste aus der DB zu löschen
 
 app.delete("/deletetopfive/:id", async (req, res) => {

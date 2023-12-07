@@ -62,7 +62,24 @@ export default function BasicModal({likes, id, topFivePosts, setTopFivePosts, co
   badwords.add(ch)
 
   const onDelete = async (id, commentId) => {
+    const deleteCheck = async () => {
+      const config = {
+        method: "POST",
+        url: `http://localhost:8080/api/checkuseroncomment`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: {
+          currentUsername: localStorage.getItem("username"),
+          postId: id,
+          commentId: commentId,
+        },
+      };
+
     try {
+        const response = await axios(config);
+
+        if (response.status === 200) {
         await deleteCommentFromPost(id, commentId);
         setTopFivePosts(prevPosts => {
           const newPosts = [...prevPosts];
@@ -70,11 +87,17 @@ export default function BasicModal({likes, id, topFivePosts, setTopFivePosts, co
           post.comments = post.comments.filter(comment => comment.commentId !== commentId);
           return newPosts;
         });
+      }
 
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        showNotification("You can only delete your own comments.", "error");
         console.log("Error deleting post: ", error);
     }
-};
+}
+    };
+    await deleteCheck();
+  };
 
   const handleChange = (e) => {
     setComment(e.target.value);
@@ -159,7 +182,9 @@ export default function BasicModal({likes, id, topFivePosts, setTopFivePosts, co
                   {comment.comment}
                 </p>
               <div className="commentdelete">
+                {comment.user === localStorage.getItem("username") && (
                 <DeleteTopFive onDelete={() => onDelete(id, comment.commentId)} />
+                )}
                 </div>
               </div>
               </CommentContainer>
