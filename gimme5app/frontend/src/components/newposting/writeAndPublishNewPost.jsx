@@ -51,18 +51,18 @@ e.preventDefault();
     const place3 = form.thirdplace.value;
     const place4 = form.fourthplace.value;
     const place5 = form.fithplace.value;
-    const hashtags = form.hashtags.value;
+    const hashtags = form.hashtags.value.split(/[,;\s]+/);
     const isPrivate = form.checkbox.value;
     const likes = 0;
 
     if (
-        badwords.check(subcategory) ||
-        badwords.check(place1) ||
-        badwords.check(place2) ||
-        badwords.check(place3) ||
-        badwords.check(place4) ||
-        badwords.check(place5) ||
-        badwords.check(hashtags)
+        badwords.check(subcategory.toString()) ||
+        badwords.check(place1.toString()) ||
+        badwords.check(place2.toString()) ||
+        badwords.check(place3.toString()) ||
+        badwords.check(place4.toString()) ||
+        badwords.check(place5.toString()) ||
+        badwords.check(hashtags.toString())
       ) {
         showNotification("No bad words allowed", "error");
         return;
